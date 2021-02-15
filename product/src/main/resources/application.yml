@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:6033/product
+    username: root
+    password: root
+
+server.port: 7001
+
+---
+spring.config.activate.on-profile: docker
+
+spring:
+  datasource:
+    url: jdbc:mysql://docker-mysql:3306/product
+
+server.port: 8080
+
+

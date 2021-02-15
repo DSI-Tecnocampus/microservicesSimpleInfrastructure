@@ -1,0 +1,28 @@
+
+docker run -d -p 6033:3306 --name=docker-mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_PASSWORD=root -e MYSQL_DATABASE=product mysql:latest
+
+
+docker run -d -p 6033:3306 --name=docker-mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_PASSWORD=root -e MYSQL_DATABASE=product mysql:5.7
+
+docker container logs docker-mysql
+
+docker exec -it docker-mysql bash -l
+
+mysql -uroot -proot
+
+use product;
+
+
+------
+build service and run docker  *************************
+
+maven install (a la interficie de maven intellij)
+
+cd product
+docker build --no-cache -t product .
+docker images | grep product-service
+docker rm -f my-product-server
+
+docker run -d -p8080:8080 -e "SPRING_PROFILES_ACTIVE=docker" --link docker-mysql:mysql --name my-product-service product
+
+ docker run -d -p8080:8080 -e "SPRING_datasource_url=jdbc:mysql://docker-mysql:3306/product" --link docker-mysql:mysql --name my-product-service product

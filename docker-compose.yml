@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  my-product-service:
+    build: product
+    mem_limit: 350m
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      docker-mysql:
+        condition: service_healthy
+
+  front:
+    build: front
+    mem_limit: 350m
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  docker-mysql:
+    image: mysql:5.7
+    mem_limit: 350m
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=product
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=pwd
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-uuser", "-ppwd", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
