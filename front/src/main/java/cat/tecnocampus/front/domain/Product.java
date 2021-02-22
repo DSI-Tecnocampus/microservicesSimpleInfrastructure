@@ -1,4 +1,4 @@
-package domain;
+package cat.tecnocampus.front.domain;
 
 public class Product {
     private long id;

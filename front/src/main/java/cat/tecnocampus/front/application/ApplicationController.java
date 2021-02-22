@@ -1,6 +1,6 @@
 package cat.tecnocampus.front.application;
 
-import domain.Product;
+import cat.tecnocampus.front.domain.Product;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -17,11 +17,10 @@ public class ApplicationController {
     private String productServiceUrl;
 
     public ApplicationController(RestTemplate restTemplate,
-        @Value("${app.product-service.host}") String productServiceHost,
-        @Value("${app.product-service.port}") int productServicePort)
+        @Value("${app.product-service.host}") String productServiceHost)
     {
         this.restTemplate = restTemplate;
-        productServiceUrl = "http://" + productServiceHost + ":" + productServicePort + "/products";
+        productServiceUrl = "http://" + productServiceHost + "/products";
     }
 
     public void createProduct(Product product) {
@@ -29,7 +28,8 @@ public class ApplicationController {
     }
 
     public List<Product> getProducts() {
-        var result = restTemplate.exchange(productServiceUrl, HttpMethod.GET, null, new ParameterizedTypeReference<List<Product>>() {});
+        var result = restTemplate.exchange(productServiceUrl, HttpMethod.GET,
+                null, new ParameterizedTypeReference<List<Product>>() {});
         return result.getBody();
     }
 }

@@ -1,7 +1,7 @@
 package cat.tecnocampus.front.api;
 
 import cat.tecnocampus.front.application.ApplicationController;
-import domain.Product;
+import cat.tecnocampus.front.domain.Product;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

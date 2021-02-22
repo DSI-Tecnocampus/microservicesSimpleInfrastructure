@@ -1,10 +1,25 @@
 server.port: 7000
 server.error.include-message: always
 
+spring.application.name: front
+
 app:
   product-service:
-    host: localhost
-    port: 7001
+    host: product
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    initialInstanceInfoReplicationIntervalSeconds: 5
+    registryFetchIntervalSeconds: 5
+  instance:
+    leaseRenewalIntervalInSeconds: 5
+    leaseExpirationDurationInSeconds: 5
+
+ribbon.ServerListRefreshInterval: 5000
+
+ribbon.NFLoadBalancerPingInterval: 5
 
 
 ---
@@ -12,7 +27,3 @@ spring.config.activate.on-profile: docker
 
 server.port: 8080
 
-app:
-  product-service:
-    host: my-product-service
-    port: 8080

@@ -17,12 +17,27 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+   <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
     <modules>
         <module>product</module>
         <module>front</module>
+        <module>discovery</module>
     </modules>
 
     <properties>
+        <spring-cloud.version>2020.0.1</spring-cloud.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>

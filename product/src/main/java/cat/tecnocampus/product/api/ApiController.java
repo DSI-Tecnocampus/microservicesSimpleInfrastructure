@@ -20,6 +20,7 @@ public class ApiController {
 
     @GetMapping("/products")
     public List<Product> getProducts() {
+        System.out.println("Getting products!!!!!");
         return persistence.getProducts();
     }
 
