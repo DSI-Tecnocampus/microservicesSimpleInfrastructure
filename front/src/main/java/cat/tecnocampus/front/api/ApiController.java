@@ -19,6 +19,7 @@ public class ApiController {
 
     @GetMapping("/products")
     public List<Product> getProducts() {
+        System.out.println("The front application");
         return applicationController.getProducts();
     }
 

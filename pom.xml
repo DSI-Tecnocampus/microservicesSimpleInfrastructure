@@ -34,6 +34,7 @@
         <module>product</module>
         <module>front</module>
         <module>discovery</module>
+        <module>gateway</module>
     </modules>
 
     <properties>
