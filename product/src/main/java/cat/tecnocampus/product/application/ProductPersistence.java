@@ -8,4 +8,6 @@ public interface ProductPersistence {
     public List<Product> getProducts();
 
     public void createProduct(Product product);
+
+    Product getProduct(long id);
 }

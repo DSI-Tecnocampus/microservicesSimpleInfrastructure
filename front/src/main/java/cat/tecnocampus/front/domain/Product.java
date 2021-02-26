@@ -5,6 +5,12 @@ public class Product {
     private String name;
     private String description;
 
+    public Product() {
+        id = 0;
+        name = "error";
+        description = "error";
+    }
+
     public long getId() {
         return id;
     }

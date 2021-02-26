@@ -21,6 +21,33 @@ ribbon.ServerListRefreshInterval: 5000
 
 ribbon.NFLoadBalancerPingInterval: 5
 
+resilience4j.circuitbreaker:
+  instances:
+    product:
+      registerHealthIndicator: true
+      ringBufferSizeInClosedState: 10
+      failureRateThreshold: 50
+      waitInterval: 10000
+      ringBufferSizeInHalfOpenState: 3
+      automaticTransitionFromOpenToHalfOpenEnabled: true
+      ignoreExceptions:
+        - org.springframework.web.client.HttpClientErrorException
+
+resilience4j.retry:
+  instances:
+    product:
+      maxRetryAttempts: 3
+      waitDuration: 1000
+      retryExceptions:
+        - org.springframework.web.client.HttpClientErrorException
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+management.health.circuitbreakers.enabled: true
 
 ---
 spring.config.activate.on-profile: docker

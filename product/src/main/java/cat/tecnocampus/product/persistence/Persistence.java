@@ -2,9 +2,11 @@ package cat.tecnocampus.product.persistence;
 
 import cat.tecnocampus.product.application.ProductPersistence;
 import cat.tecnocampus.product.domain.Product;
+import cat.tecnocampus.product.domain.ProductDoesNotExistException;
 import org.simpleflatmapper.jdbc.spring.JdbcTemplateMapperFactory;
 import org.simpleflatmapper.jdbc.spring.ResultSetExtractorImpl;
 import org.simpleflatmapper.jdbc.spring.RowMapperImpl;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -21,6 +23,10 @@ public class Persistence implements ProductPersistence {
                     .addKeys("id")
                     .newResultSetExtractor(Product.class);
 
+    RowMapperImpl<Product> productRowMapper = JdbcTemplateMapperFactory.newInstance().addKeys("id")
+            .newRowMapper(Product.class);
+
+
     public Persistence(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -36,4 +42,16 @@ public class Persistence implements ProductPersistence {
         final var insertProduct = "INSERT INTO product (name, description) VALUES (?,?)";
         jdbcTemplate.update(insertProduct, product.getName(), product.getDescription());
     }
+
+    @Override
+    public Product getProduct(long id) {
+        final var query = "select * from product where id = ?";
+        try {
+            return jdbcTemplate.queryForObject(query, productRowMapper, id);
+        } catch (
+        EmptyResultDataAccessException e) {
+            throw new ProductDoesNotExistException(id);
+        }
+
+}
 }

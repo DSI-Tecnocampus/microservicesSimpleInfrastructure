@@ -2,10 +2,7 @@ package cat.tecnocampus.front.api;
 
 import cat.tecnocampus.front.application.ApplicationController;
 import cat.tecnocampus.front.domain.Product;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +18,14 @@ public class ApiController {
     public List<Product> getProducts() {
         System.out.println("The front application");
         return applicationController.getProducts();
+    }
+
+    @GetMapping("/products/{id}")
+    public Product getProduct(@PathVariable long id,
+                              @RequestParam(value = "delay", required = false, defaultValue = "0") int delay,
+                              @RequestParam(value = "faultRatio", required = false, defaultValue = "0") int faultRatio) {
+        System.out.println("The front application");
+        return applicationController.getProduct(id, delay, faultRatio);
     }
 
     @PostMapping("/products")
