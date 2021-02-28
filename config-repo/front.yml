@@ -7,20 +7,6 @@ app:
   product-service:
     host: product
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-    initialInstanceInfoReplicationIntervalSeconds: 5
-    registryFetchIntervalSeconds: 5
-  instance:
-    leaseRenewalIntervalInSeconds: 5
-    leaseExpirationDurationInSeconds: 5
-
-ribbon.ServerListRefreshInterval: 5000
-
-ribbon.NFLoadBalancerPingInterval: 5
-
 resilience4j.circuitbreaker:
   instances:
     product:
@@ -41,17 +27,12 @@ resilience4j.retry:
       retryExceptions:
         - org.springframework.web.client.HttpClientErrorException
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-
+management.endpoints.web.exposure.include: "*"
 management.health.circuitbreakers.enabled: true
+management.endpoint.health.show-details: "ALWAYS"
 
 ---
 spring.config.activate.on-profile: docker
 
 server.port: 8080
 
-eureka.client.serviceUrl.defaultZone: http://eureka:8761/eureka/
