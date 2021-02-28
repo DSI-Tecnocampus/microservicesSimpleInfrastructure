@@ -15,8 +15,6 @@ services:
   front:
     build: front
     mem_limit: 350m
-    #ports:
-    #  - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - CONFIG_SERVER_USR=${CONFIG_SERVER_USR}
@@ -29,8 +27,6 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
       - CONFIG_SERVER_USR=${CONFIG_SERVER_USR}
       - CONFIG_SERVER_PWD=${CONFIG_SERVER_PWD}
-    #ports:
-    #  - "8761:8761"
 
   gateway:
     environment:
