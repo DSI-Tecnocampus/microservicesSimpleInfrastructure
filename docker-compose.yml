@@ -66,5 +66,30 @@ services:
       retries: 10
     volumes:
         - my-datavolume:/var/lib/mysql
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    mem_limit: 350m
+    ports:
+      - 5672:5672
+      - 15672:15672
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 20s
+      timeout: 5s
+      retries: 10
+
+  zipkin:
+    image: openzipkin/zipkin
+    mem_limit: 512m
+    environment:
+      - STORAGE_TYPE=mem
+      - RABBIT_ADDRESSES=rabbitmq
+    ports:
+      - 9411:9411
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
 volumes:
         my-datavolume:
