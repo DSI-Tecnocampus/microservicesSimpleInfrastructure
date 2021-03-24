@@ -1,7 +1,6 @@
 server.port: 8888
 
 spring.cloud.config.server.native.searchLocations: file:${PWD}/config-repo
-
 spring.security.user.name: "dev-usr"
 spring.security.user.password: "dev-pwd"
 
@@ -9,6 +8,9 @@ management.endpoint.health.show-details: "ALWAYS"
 management.endpoints.web.exposure.include: "*"
 
 logging.level.root: info
+spring:
+  profiles:
+    active: native
 ---
 spring.config.activate.on-profile: docker
 
