@@ -1,7 +1,7 @@
 package cat.tecnocampus.front.application;
 
 import cat.tecnocampus.front.domain.Product;
-import io.github.resilience4j.retry.annotation.Retry;
+//import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
@@ -39,7 +39,7 @@ public class ApplicationController {
         return result.getBody();
     }
 
-    @Retry(name="product")
+    //@Retry(name="product")
     public Product getProduct(long id, int delay, int faultRatio) {
         CircuitBreaker circuitBreaker = circuitBreakerFactory.create("product");
         var url = productServiceUrl + "/" + id + "?delay=" + delay + "&faultRatio=" + faultRatio;
