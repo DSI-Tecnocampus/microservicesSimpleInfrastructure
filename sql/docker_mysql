@@ -27,3 +27,11 @@ docker rm -f my-product-server
 docker run -d -p8080:8080 -e "SPRING_PROFILES_ACTIVE=docker" --link docker-mysql:mysql --name my-product-service product
 
  docker run -d -p8080:8080 -e "SPRING_datasource_url=jdbc:mysql://docker-mysql:3306/product" --link docker-mysql:mysql --name my-product-service product
+
+------- to begin from zero (discard previous dockers)
+docker-compose rm -f
+docker-compose pull
+docker-compose up --build -d
+# Run some tests
+./tests
+docker-compose stop -t 1
